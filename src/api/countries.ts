@@ -3,7 +3,7 @@ import { Country, JsonCountry } from "@/models/country";
 export const getRandomContry = async () => {
   try {
     const res = await require("@/json/countries.json");
-    const data: JsonCountry[] = res;
+    const data: JsonCountry[] = res.filter((elem:JsonCountry)=> elem.independent === true );
 
     const randomId = Math.round(Math.random() * 249);
 
@@ -15,6 +15,11 @@ export const getRandomContry = async () => {
       region: data[randomId].region,
     };
     console.log(randomCountry);
+
+    if (randomCountry.capital.length === 0) {
+      randomCountry.capital = "aucune";
+    }
+
     return { country: randomCountry };
   } catch (error) {
     return { error: error };

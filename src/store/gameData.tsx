@@ -22,8 +22,8 @@ export const useCountryStore = create<CountryState>((set) => ({
     const res = await getRandomContry();
     if (res.country) {
       set({ country: res.country });
-      set({loading : false})
     }
+    set({loading : false})
   },
 }));
 
