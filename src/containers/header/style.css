@@ -1,0 +1,11 @@
+/* .header-top{
+    position: relative;
+}
+
+.header-top::before{
+content: "";
+height: 10px;
+position: absolute;
+top: 10px;
+ background-color: beige;
+} */

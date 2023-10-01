@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useCountryStore, useLevelStore } from "@/store/gameData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
+import { UseScore } from "@/store/scoreStore";
 
 interface Inputs {
   responseA: string;
@@ -24,16 +25,24 @@ export default function AnswerForm({ className }: Props) {
   const country = useCountryStore((state) => state.country);
   const genenrateCountry = useCountryStore((state) => state.generateCountry);
   const nextLevel = useLevelStore((state) => state.nextLevel);
+  const increaseScore = UseScore((state) => state.increaseScore);
 
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    data.responseA.toLowerCase() === country.name.toLowerCase()
-      ? setaIsCorrect(true)
-      : setaIsCorrect(false);
-    data.responseB.toLowerCase() === country.capital.toLowerCase()
-      ? setbIsCorrect(true)
-      : setbIsCorrect(false);
+    if (data.responseA.toLowerCase() === country.name.toLowerCase()) {
+      setaIsCorrect(true);
+      increaseScore(100);
+    } else {
+      setaIsCorrect(false);
+    }
+
+    if (data.responseB.toLowerCase() === country.capital.toLowerCase()) {
+      setbIsCorrect(true);
+      increaseScore(250)
+    } else {
+      setbIsCorrect(false);
+    }
 
     setresponseIsSend(true);
   };
@@ -53,7 +62,12 @@ export default function AnswerForm({ className }: Props) {
     >
       <div className="flex flex-col gap-4">
         <label htmlFor="responseA">De quel pays s&apos;agit-il ?</label>
-        <input type="text" id="responseA" autoComplete="off" {...register("responseA")} />
+        <input
+          type="text"
+          id="responseA"
+          autoComplete="off"
+          {...register("responseA")}
+        />
         <div className="h-10">
           {responseIsSend ? (
             <>
@@ -70,7 +84,12 @@ export default function AnswerForm({ className }: Props) {
       </div>
       <div className="flex flex-col gap-4">
         <label htmlFor="responseB">Quelle est sa capitale ?</label>
-        <input type="text" id="responseB" autoComplete="off" {...register("responseB")} />
+        <input
+          type="text"
+          id="responseB"
+          autoComplete="off"
+          {...register("responseB")}
+        />
         <div className="h-10">
           {responseIsSend ? (
             <>

@@ -3,9 +3,12 @@ import { Country, JsonCountry } from "@/models/country";
 export const getRandomContry = async () => {
   try {
     const res = await require("@/json/countries.json");
-    const data: JsonCountry[] = res.filter((elem:JsonCountry)=> elem.independent === true );
+    const data: JsonCountry[] = res.filter(
+      (elem: JsonCountry) =>
+        elem.independent === true && elem.capital.length != 0 && elem.flag
+    );
 
-    const randomId = Math.round(Math.random() * 249);
+    const randomId = Math.round(Math.random() * (data.length - 1));
 
     const randomCountry: Country = {
       name: data[randomId].translations.fra.common,
@@ -16,12 +19,48 @@ export const getRandomContry = async () => {
     };
     console.log(randomCountry);
 
-    if (randomCountry.capital.length === 0) {
-      randomCountry.capital = "aucune";
-    }
-
     return { country: randomCountry };
-  } catch (error) {
+  } catch (error:any) {
     return { error: error };
   }
 };
+
+export const getRandomNames = async (response: string) => {
+  const data :string[] = [];
+  for (let i = 0; i < 4; i++) {
+    const country = await getRandomContry();
+    country.country && data.push(country.country.name);
+  }
+  data.push(response);
+  data.sort((a,b)=>{
+    if (a < b) {
+      return -1
+    }
+    if (a>b) {
+      return 1
+    }
+    return 0
+  })
+  return data;
+};
+
+export const getRandomCapitals = async (response:string) => {
+  const data : string[] = [];
+  for (let i = 0; i < 4; i++) {
+    const country = await getRandomContry();
+    country.country && data.push(country.country?.capital);
+  }
+  data.push(response)
+  data.sort((a,b)=>{
+    if (a < b) {
+      return -1
+    }
+    if (a>b) {
+      return 1
+    }
+    return 0
+  })
+  return data;
+};
+
+

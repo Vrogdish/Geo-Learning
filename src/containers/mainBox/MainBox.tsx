@@ -1,34 +1,59 @@
-"use client";
+"use client"
 
 import Welcome from "../welcome/Welcome";
 import Game from "../game/Game";
 import { useLevelStore } from "@/store/gameData";
 import Result from "../result/Result";
+import Image from "next/image";
+import "./style.css"
 
 export default function MainBox() {
   const turn = useLevelStore((state) => state.turn);
+  
 
-  const boxStyle = "bg-gradient-to-tr from-blue-400 via-sky-400 to-cyan-400 my-20 rounded-3xl shadow-2xl h-[600px] flex items-center justify-center w-3/4 m-auto"
+  const boxStyle =
+    "mt-28 mb-40 rounded-3xl h-[700px] flex items-center justify-center w-3/4 m-auto relative overflow-hidden shadow-light";
 
   if (turn <= 0) {
     return (
       <div className={boxStyle}>
+        <Image
+          src={"/images/globe.webp"}
+          alt=""
+          width={1280}
+          height={900}
+          className="absolute w-full h-full object-cover brightness-50 "
+        />
         <Welcome />
       </div>
     );
   } else if (turn > 20) {
     return (
       <div className={boxStyle}>
-        <Result/>
+        <Image
+          src={"/images/globe.webp"}
+          alt=""
+          width={1280}
+          height={900}
+          className="absolute w-full h-full object-cover blur-md brightness-50"
+        />
+
+        <Result />
       </div>
     );
   } else {
     return (
       <div className={boxStyle}>
-         <Game />
+        <Image
+          src={"/images/globe.webp"}
+          alt=""
+          width={1280}
+          height={900}
+          className="absolute w-full h-full object-cover blur-md brightness-50"
+        />
+
+        <Game />
       </div>
     );
   }
-
-
 }

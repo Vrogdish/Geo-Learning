@@ -1,11 +1,14 @@
-import { getRandomContry } from "@/api/countries";
+import { getRandomCapitals, getRandomContry, getRandomNames } from "@/api/countries";
 import { Country } from "@/models/country";
 import { create } from "zustand";
 
 interface CountryState {
   country: Country;
+  randomNames: string[];
+  randomCapitals: string[];
   loading: boolean;
   generateCountry: () => void;
+
 }
 
 export const useCountryStore = create<CountryState>((set) => ({
@@ -16,14 +19,23 @@ export const useCountryStore = create<CountryState>((set) => ({
     flagUrl: "",
     region: "",
   },
-  loading: true,
+  randomNames: [""],
+  randomCapitals: [""],
+
+  loading: false,
   generateCountry: async () => {
     set({ loading: true });
-    const res = await getRandomContry();
-    if (res.country) {
-      set({ country: res.country });
+    const country = await getRandomContry();
+    if (country.country) {
+      set({ country: country.country });
+      const randomNames = await getRandomNames(country.country.name)
+      set({randomNames:randomNames})
+      const randomCapitals = await getRandomCapitals(country.country.capital)
+      set ({randomCapitals:randomCapitals})
     }
-    set({loading : false})
+    
+    ;
+    const timeout = setTimeout(()=>{set({ loading: false })}, 1500)
   },
 }));
 
@@ -31,12 +43,14 @@ interface TurnState {
   turn: number;
   start: () => void;
   reset: () => void;
+  quit: () => void;
   nextLevel: () => void;
 }
 export const useLevelStore = create<TurnState>((set) => ({
   turn: 0,
   start: () => set({ turn: 1 }),
   reset: () => set({ turn: 0 }),
+  quit: () => set({ turn: 21 }),
   nextLevel: () => set((state) => ({ turn: state.turn + 1 })),
 }));
 
