@@ -1,4 +1,5 @@
 import { getRandomCapitals, getRandomContry, getRandomNames } from "@/api/countries";
+import { loadingTime, nbrOfTurns } from "@/config/gameConfig";
 import { Country } from "@/models/country";
 import { create } from "zustand";
 
@@ -21,8 +22,8 @@ export const useCountryStore = create<CountryState>((set) => ({
   },
   randomNames: [""],
   randomCapitals: [""],
+  loading: true,
 
-  loading: false,
   generateCountry: async () => {
     set({ loading: true });
     const country = await getRandomContry();
@@ -35,7 +36,7 @@ export const useCountryStore = create<CountryState>((set) => ({
     }
     
     ;
-    const timeout = setTimeout(()=>{set({ loading: false })}, 1500)
+    const timeout = setTimeout(()=>{set({ loading: false })}, loadingTime)
   },
 }));
 
@@ -50,16 +51,16 @@ export const useLevelStore = create<TurnState>((set) => ({
   turn: 0,
   start: () => set({ turn: 1 }),
   reset: () => set({ turn: 0 }),
-  quit: () => set({ turn: 21 }),
+  quit: () => set({ turn: nbrOfTurns + 1 }),
   nextLevel: () => set((state) => ({ turn: state.turn + 1 })),
 }));
 
-interface LoadingState {
-  loading: boolean;
-  setIsLoading: (state: boolean) => void;
-}
+// interface LoadingState {
+//   loading: boolean;
+//   setIsLoading: (state: boolean) => void;
+// }
 
-export const useLoadingState = create<LoadingState>((set) => ({
-  loading: false,
-  setIsLoading: (state) => set({ loading: state }),
-}));
+// export const useLoadingState = create<LoadingState>((set) => ({
+//   loading: false,
+//   setIsLoading: (state) => set({ loading: state }),
+// }));

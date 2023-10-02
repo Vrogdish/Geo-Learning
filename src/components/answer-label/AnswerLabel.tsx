@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../button/Button";
-import { useCountryStore, useLevelStore } from "@/store/gameData";
+import { useCountryStore } from "@/store/gameData";
 import { UseScore } from "@/store/scoreStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,6 +11,8 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import useGameFunctions from "@/hooks/useGameFunctions";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { UseCountDown } from "@/store/countdownStore";
+import { scoreForA, scoreForB } from "@/config/gameConfig";
 
 export default function AnswerLabel() {
   const [choiceA, setChoiceA] = useState("");
@@ -22,20 +24,23 @@ export default function AnswerLabel() {
   const country = useCountryStore((state) => state.country);
   const countriesNameList = useCountryStore((state) => state.randomNames);
   const countriesCapitalList = useCountryStore((state) => state.randomCapitals);
+  const countdownStop = UseCountDown((state) => state.stop);
+  const countdownTime = UseCountDown((state) => state.count);
 
   const increaseScore = UseScore((state) => state.increaseScore);
   const { nextLevel } = useGameFunctions();
 
   const handleSubmit = () => {
+    countdownStop();
     if (choiceA === country.name) {
       setAIsCorrect(true);
-      increaseScore(100);
+      increaseScore(scoreForA);
     } else {
       setAIsCorrect(false);
     }
     if (choiceB === country.capital) {
       setBIsCorrect(true);
-      increaseScore(250);
+      increaseScore(scoreForB);
     } else {
       setBIsCorrect(false);
     }
@@ -48,6 +53,12 @@ export default function AnswerLabel() {
     setAIsCorrect(false);
     setBIsCorrect(false);
   };
+
+  useEffect(() => {
+    countdownTime === 0 && handleSubmit();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countdownTime]);
 
   return (
     <div className="w-1/2">
@@ -63,7 +74,11 @@ export default function AnswerLabel() {
                   ? "bg-green-600"
                   : "bg-red-600"
                 : "bg-gray-400"
-            } ${elem === choiceA ? "border-amber-50 shadow-light" : "border-transparent"}`}
+            } ${
+              elem === choiceA
+                ? "border-amber-50 shadow-light"
+                : "border-transparent"
+            }`}
           >
             {elem}
             {responseSubmitted && elem === choiceA && !aIsCorrect ? (
@@ -86,7 +101,7 @@ export default function AnswerLabel() {
           aIsCorrect ? (
             <div className="relative">
               <p className="text-center font-bold text-yellow-500 ">
-                150 points
+                {scoreForA} points
               </p>
               <FontAwesomeIcon
                 icon={faStar}
@@ -113,7 +128,11 @@ export default function AnswerLabel() {
                   ? "bg-green-600"
                   : "bg-red-600"
                 : "bg-gray-400"
-            } ${elem === choiceB ? "border-amber-50 shadow-light" : "border-transparent"}`}
+            } ${
+              elem === choiceB
+                ? "border-amber-50 shadow-light"
+                : "border-transparent"
+            }`}
           >
             {elem}
             {responseSubmitted && elem === choiceB && !bIsCorrect ? (
@@ -132,11 +151,11 @@ export default function AnswerLabel() {
             ) : null}
           </div>
         ))}
-                {responseSubmitted ? (
+        {responseSubmitted ? (
           bIsCorrect ? (
             <div className="relative">
               <p className="text-center font-bold text-yellow-500 ">
-                250 points
+                {scoreForB} points
               </p>
               <FontAwesomeIcon
                 icon={faStar}

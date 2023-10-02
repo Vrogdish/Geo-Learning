@@ -6,6 +6,7 @@ import { useLevelStore } from "@/store/gameData";
 import Result from "../result/Result";
 import Image from "next/image";
 import "./style.css"
+import { nbrOfTurns } from "@/config/gameConfig";
 
 export default function MainBox() {
   const turn = useLevelStore((state) => state.turn);
@@ -27,7 +28,7 @@ export default function MainBox() {
         <Welcome />
       </div>
     );
-  } else if (turn > 20) {
+  } else if (turn > nbrOfTurns) {
     return (
       <div className={boxStyle}>
         <Image
