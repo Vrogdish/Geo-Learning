@@ -1,14 +1,9 @@
 "use client";
 
 import { UseCountDown } from "@/store/countdownStore";
-import React, { useEffect, useState } from "react";
 
 export default function Countdown() {
-  // const [count, setCount] = useState(false);
   const time = UseCountDown((state) => state.count);
-  const start = UseCountDown((state) => state.start);
-  const stop = UseCountDown((state) => state.stop);
-  //   const setTime = UseCountDown((state) => state.setTime);
 
   return (
     <div

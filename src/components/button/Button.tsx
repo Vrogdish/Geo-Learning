@@ -1,8 +1,7 @@
-import Node from "postcss/lib/node";
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface Props {
-  children: any;
+  children: ReactNode;
   className?: string;
   theme?:  "confirm" | "alert" | "disabled";
   type?: "button" | "submit";

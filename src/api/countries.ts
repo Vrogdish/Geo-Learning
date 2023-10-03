@@ -17,7 +17,6 @@ export const getRandomContry = async () => {
       flagUrl: `/data/${data[randomId].cca2.toLowerCase()}.png`,
       region: data[randomId].region,
     };
-    console.log(randomCountry);
 
     return { country: randomCountry };
   } catch (error:any) {

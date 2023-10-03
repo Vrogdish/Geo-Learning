@@ -4,7 +4,6 @@ import { UseScore } from "@/store/scoreStore";
 
 export default function useGameFunctions() {
   const generateCountry = useCountryStore((state) => state.generateCountry);
-  const loading = useCountryStore((state)=>state.loading)
   const resetScore = UseScore((state) => state.reset);
   const startLevel = useLevelStore((state) => state.start);
   const finish = useLevelStore((state)=>state.quit)
@@ -12,6 +11,7 @@ export default function useGameFunctions() {
   const next = useLevelStore((state)=>state.nextLevel)
   const countdownStart = UseCountDown((state)=>state.start)
   const countdownReset = UseCountDown((state)=>state.reset)
+  const loading = useCountryStore((state)=>state.loading)
 
 
   const startNewGame = async () => {

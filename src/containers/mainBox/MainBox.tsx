@@ -5,7 +5,6 @@ import Game from "../game/Game";
 import { useLevelStore } from "@/store/gameData";
 import Result from "../result/Result";
 import Image from "next/image";
-import "./style.css"
 import { nbrOfTurns } from "@/config/gameConfig";
 
 export default function MainBox() {

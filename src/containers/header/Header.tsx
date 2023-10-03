@@ -2,7 +2,6 @@
 
 import { useLevelStore } from "@/store/gameData";
 import React from "react";
-import "./style.css";
 import useGameFunctions from "@/hooks/useGameFunctions";
 
 export default function Header() {
@@ -11,7 +10,6 @@ export default function Header() {
 
   return (
     <header className="">
-      {/* <div className="w-full h-10 header-top shadow-light bg-amber-950"></div> */}
       <nav className="flex gap-24 items-center justify-center py-6   px-20 font-bold  max-w-screen-md m-auto rounded-b-full shadow-light  ">
         <div onClick={resetGame} className="cursor-pointer border-2 border-transparent hover:border-b-amber-800 transition-all ">
           Accueil
@@ -33,7 +31,6 @@ export default function Header() {
         )}
         <div className="cursor-pointer border-2 border-transparent hover:border-b-amber-800 transition-all">A propos</div>
       </nav>
-      {/* <div className="w-full h-10 absolute bg-amber-950 top-0"></div> */}
     </header>
   );
 }

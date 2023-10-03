@@ -55,12 +55,3 @@ export const useLevelStore = create<TurnState>((set) => ({
   nextLevel: () => set((state) => ({ turn: state.turn + 1 })),
 }));
 
-// interface LoadingState {
-//   loading: boolean;
-//   setIsLoading: (state: boolean) => void;
-// }
-
-// export const useLoadingState = create<LoadingState>((set) => ({
-//   loading: false,
-//   setIsLoading: (state) => set({ loading: state }),
-// }));
