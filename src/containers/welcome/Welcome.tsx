@@ -7,7 +7,7 @@ export default  function  Welcome() {
   const { startNewGame } = useGameFunctions();
 
   return (
-    <div className="relative z-10 w-full px-6 lg:px-20 xl:px-32">
+    <div className="relative z-10 w-full px-6 lg:px-20 xl:px-32 m-auto">
       <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-28 tracking-wider leading-loose ">
         Découvre les pays <br /> en t&apos;amusant !
       </h1>
