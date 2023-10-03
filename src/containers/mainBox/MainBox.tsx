@@ -12,7 +12,7 @@ export default function MainBox() {
   
 
   const boxStyle =
-    "mt-28 mb-40 rounded-3xl h-[700px] flex items-center justify-center w-3/4 m-auto relative overflow-hidden shadow-light";
+    "mt-28 mb-40 md:rounded-3xl min-h-[700px] flex items-center md:items-start justify-center w-full md:w-3/4 m-auto relative overflow-hidden shadow-light";
 
   if (turn <= 0) {
     return (

@@ -61,9 +61,9 @@ export default function AnswerLabel() {
   }, [countdownTime]);
 
   return (
-    <div className="w-1/2">
+    <div className="px-4 md:w-1/2">
       <p className=" mb-6">Quelle est ce pays ?</p>
-      <div className="grid grid-cols-3 gap-4 items-start ">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 items-start ">
         {countriesNameList.map((elem, index) => (
           <div
             key={index}
@@ -170,9 +170,9 @@ export default function AnswerLabel() {
           <></>
         )}
       </div>
-      <div className="mt-20">
+      <div className="mt-20 ">
         {responseSubmitted ? (
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col xl:flex-row justify-between items-center space-y-4">
             {aIsCorrect !== bIsCorrect ? (
               <p className="text-green-500 font-bold">
                 Bravo tu as une bonne réponse
@@ -193,7 +193,7 @@ export default function AnswerLabel() {
             </Button>
           </div>
         ) : (
-          <Button type="button" action={handleSubmit}>
+          <Button type="button" action={handleSubmit} className="m-auto">
             Soumettre
           </Button>
         )}

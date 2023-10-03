@@ -13,13 +13,12 @@ export default function Game() {
   return (
     <div className="h-full w-full relative z-10">
       <GameHeader />
-      <div className="flex justify-around w-full h-full py-8">
+      <div className="flex flex-col items-center md:flex-row md:items-start  justify-around w-full h-full py-8">
         {!loading ? (
           <>
-            <div className="w-60 flex flex-col items-center mt-10">
+            <div className="w-60 flex flex-col items-center my-10">
               <Image src={country.flagUrl} alt="" width={250} height={250} />
             </div>
-            {/* <AnswerForm country={country} className="w-1/3" /> */}
             <AnswerLabel />
           </>
         ) : (

@@ -15,13 +15,13 @@ const middleScore = (scoreForA + scoreForB) * nbrOfTurns * 2/3
 const congratStyleDefault = "text-center mb-10"
 
   return (
-    <div className='relative z-10 '>
+    <div className='relative z-10 w-full h-full m-auto '>
       {score < lowScore && <p className={`${congratStyleDefault} `}>Tu peux surement mieux faire .... </p>}
       {score >= lowScore && score <= middleScore && <p className={`${congratStyleDefault}`}>Bravo pour ce resultat</p>}
       {score > middleScore && <p className={`${congratStyleDefault}`}>Félicitation, super score ! </p>}
 
       <p className='text-5xl text-center mb-28'>{score} points</p>
-      <div className='flex gap-20'>
+      <div className='flex  gap-6 md:gap-20 justify-center' >
       <Button theme='alert' action={resetGame}>
         Quitter
       </Button>
